@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    /* Container for the main content */
+    .content {
+      display: flex;
+      flex: 1;
+      /* Take up the remaining vertical space */
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      background-color: #ddd;
+      width: 20%;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+img{
+  width: 100%;
+}
+    /* Main content styles */
+    .main-content {
+      flex: 1;
+      /* Take up the remaining horizontal space */
+      padding: 10px;
+      background-color: beige;
+    }
+
+    /* Row alignment for articles */
+    .article-row {
+      display: flex;
+
+      justify-content: space-between;
+    }
+
+    /* Style for individual articles */
+    .article {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px;
+      flex: 0 0 30%;
+      /* Each article takes up 30% of the available space */
+    }
+
+    .footer {
+      background-color: azure;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1>Header</h1>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Sidebar</h2>
+      <p>Sidebar content here.</p>
+    </div>
+
+    <!-- Main content with articles -->
+    <div class="main-content">
+      <h2>Main Content</h2>
+      <div class="article-row">
+        <!-- Article 1 -->
+        <!-- Article 1 -->
+        <div class="article">
+          <h3>Article 1</h3>
+          <img src="https://1000logos.net/wp-content/uploads/2017/02/ING-logo-history.jpg" alt="Image for Article 1">
+          <!-- <p>Content for Article 1.</p> -->
+        </div>
+
+        <!-- Article 2 -->
+        <div class="article">
+          <h3>Article 2</h3>
+          <img src="https://1000logos.net/wp-content/uploads/2017/02/ING-logo-history.jpg" alt="Image for Article 2">
+          <!-- <p>Content for Article 2.</p> -->
+        </div>
+
+        <!-- Article 3 -->
+        <div class="article">
+          <h3>Article 3</h3>
+          <img src="https://1000logos.net/wp-content/uploads/2017/02/ING-logo-history.jpg" alt="Image for Article 3">
+          <!-- <p>Content for Article 3.</p> -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <h2>Footer</h2>
+    <p>Footer content here.</p>
+  </div>
+</body>
+
+</html>
