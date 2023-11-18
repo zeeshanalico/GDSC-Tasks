@@ -6,66 +6,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>To-Do List App</title>
+    <script>
+
+    </script>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
             margin: 0;
         }
 
-        .container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #task-container {
-            margin-bottom: 20px;
-        }
-
         ul {
-            list-style: none;
+            list-style-type: none;
+            margin: 0;
             padding: 0;
         }
 
-        li {
-            background-color: #fff;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 15px;
+            background: #fff;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease-in-out;
         }
 
-        button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px;
-            border-radius: 4px;
+        ul li:nth-child(odd) {
+            background: #f4f4f4;
+        }
+
+        ul li:hover {
+            background: #f0f0f0;
+        }
+
+        ul li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+        ul li.checked::before {
+            content: '';
+            position: absolute;
+            border-color: #fff;
+            border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            height: 10px;
+            width: 5px;
+        }
+
+        .close,
+        .edit {
             cursor: pointer;
+            float: right;
+            padding: 10px;
+            margin-left: 10px;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .edit:hover {
+            color: #f44336;
+        }
+
+        .header {
+            background-color: #3498db;
+            padding: 30px 0;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            margin: 0;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .addBtn {
+            padding: 10px;
+            background: #3498db;
+            border: 1px solid white;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .addBtn:hover {
+            background-color: #2980b9;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <div id="task-container">
-            <input type="text" id="new-task" placeholder="Add a new task">
-            <button onclick="addTask()">Add</button>
-        </div>
-        <ul id="task-list" onclick="handleListClick(event)">
-        </ul>
+    <div id="myDIV" class="header">
+        <h2>My To Do List</h2>
+        <input type="text" id="myInput" placeholder="Title...">
+        <span onclick="newElement()" class="addBtn">Add</span>
     </div>
-    <script src="script.js"></script>
+
+    <ul id="myUL"> </ul>
+
+
+    <script>
+        function createListItem(text) {
+            var li = document.createElement("li");
+            var spanClose = document.createElement("SPAN");
+            var spanEdit = document.createElement("SPAN");
+            var txtClose = document.createTextNode("\u00D7");
+            var txtEdit = document.createTextNode("Edit");
+            spanClose.className = "close";
+            spanEdit.className = "edit";
+            spanClose.appendChild(txtClose);
+            spanEdit.appendChild(txtEdit);
+            li.appendChild(document.createTextNode(text));
+            li.appendChild(spanEdit);
+            li.appendChild(spanClose);
+            return li;
+        }
+
+        function attachListItemEvents(li) {
+            var close = li.getElementsByClassName("close")[0];
+            var edit = li.getElementsByClassName("edit")[0];
+
+            close.onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            };
+
+            edit.onclick = function () {
+                var newText = prompt("Edit task:", li.firstChild.nodeValue);
+                if (newText !== null) {
+                    li.firstChild.nodeValue = newText;
+                }
+            };
+
+            li.addEventListener('click', function (ev) {
+                if (ev.target.tagName === 'LI') {
+                    ev.target.classList.toggle('checked');
+                }
+            }, false);
+        }
+
+        function newElement() {
+            var inputValue = document.getElementById("myInput").value;
+            if (inputValue === '') {
+                alert("You must write something!");
+            } else {
+                var li = createListItem(inputValue);
+                document.getElementById("myUL").appendChild(li);
+                attachListItemEvents(li);
+            }
+            document.getElementById("myInput").value = "";
+        }
+
+        // Create initial list items
+        var initialTasks = [];
+        for (var i = 0; i < initialTasks.length; i++) {
+            var li = createListItem(initialTasks[i]);
+            document.getElementById("myUL").appendChild(li);
+            attachListItemEvents(li);
+        }
+    </script>
 </body>
 
 </html>
